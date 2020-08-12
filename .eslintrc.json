@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "no-else-return": 2,
+    "no-empty": 2,
+    "no-duplicate-case": 2,
+    "no-alert": 2,
+    "init-declarations": 2,
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "auto-self-close-empty-tags": 0
+  }
+}
