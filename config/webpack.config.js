@@ -280,7 +280,7 @@ module.exports = function (webpackEnv) {
         modules.additionalModulePaths || []
       ),
       // These are the reasonable defaults supported by the Node ecosystem.
-      // We also include JSX as a common component filename extension to support
+      // We also include JSX as a common components filename extension to support
       // some tools, although we do not recommend using it, see:
       // https://github.com/facebook/create-react-app/issues/290
       // `web` extension prefixes have been added for better support
@@ -454,7 +454,16 @@ module.exports = function (webpackEnv) {
                 },
               }),
             },
-            // Opt-in support for SASS (using .scss or .sass extensions).
+						{
+							test: /\.less$/,
+							use: ['style-loader', 'css-loader', {
+								loader: 'less-loader',
+								options: {
+									javascriptEnabled: true,
+								}
+							}],
+						},
+						// Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
             // extensions .module.scss or .module.sass
             {

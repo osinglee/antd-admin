@@ -3,3 +3,10 @@ config
 public
 scripts
 test
+.editorconfig
+.eslintrc.json
+.gitignore
+.prettierignore
+.prettierrc
+package.json
+*.png

@@ -1,0 +1,89 @@
+.app_layout {
+	.site_layout_header {
+		width: 100%;
+		text-align: right;
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		align-items: center;
+		box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+		padding: 0 20px;
+	}
+
+	.site_side_bar {
+		background-color: #f3f5f9;
+		overflow-y: auto;
+
+		&::-webkit-scrollbar {
+			/*滚动条整体样式*/
+			display: none;
+			margin: 0;
+		}
+	}
+
+	.site_layout_background {
+		background-color: #fff;
+		padding: 0;
+		z-index: 9;
+	}
+
+	.trigger {
+		height: 50px;
+		padding: 0 24px 0 0;
+		font-size: 18px;
+		transition: all 0.3s, padding 0s;
+		line-height: 50px;
+		font-style: italic;
+		text-align: center;
+	}
+
+	.avatar {
+		margin: 0 10px;
+		cursor: pointer;
+	}
+
+	.header_right {
+		display: flex;
+		float: right;
+		height: 50px;
+		margin-left: auto;
+		overflow: hidden;
+	}
+
+	.header_user {
+		display: inline-block;
+		padding: 0 12px;
+	}
+
+	.app_layout_count {
+		overflow-y: auto;
+		background-color: #ffffff;
+	}
+
+	.app_layout_content {
+	}
+
+	.bread_div {
+		height: 48px;
+		padding-top: 13px;
+		padding-left: 15px;
+		background-color: #ffffff;
+	}
+
+	.bread_color {
+	}
+
+	.logout_button {
+		position: absolute;
+		right: 20px;
+		color: #333333;
+	}
+
+	.home_logo {
+		width: 60px;
+		height: 60px;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		margin: 10px auto;
+	}
+}

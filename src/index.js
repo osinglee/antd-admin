@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { ConfigProvider } from 'antd';
+import './styles/index.less';
+import App from './app';
 import * as serviceWorker from './serviceWorker';
+import anTdConfig from './antdConfig';
 
 ReactDOM.render(
-	<React.StrictMode>
+	<ConfigProvider {...anTdConfig}>
 		<App />
-	</React.StrictMode>,
+	</ConfigProvider>,
 	document.getElementById('root')
 );
 
