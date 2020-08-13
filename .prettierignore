@@ -2,6 +2,7 @@
 config
 public
 scripts
+build
 test
 .editorconfig
 .eslintrc.json
