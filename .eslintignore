@@ -1,1 +1,6 @@
-src/serviceWorker.js
+/src/serviceWorker.js
+/dist/
+/script/
+/config/
+/public/
+/test/

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Setting = (_) => {
+const Setting = () => {
 	return <div>Setting</div>;
 };
 export default Setting;

@@ -11,12 +11,10 @@ const Login = () => {
 
 	const handleSubmit = (value) => {
 		console.log(value);
-		// 阻止事件的默认行为
 		setLoading(true);
 		State.login({ name: 'admin' });
-		history.push('/');
-
 		setLoading(false);
+		history.push('/');
 	};
 
 	return (

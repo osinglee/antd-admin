@@ -20,9 +20,6 @@ const AppLayout = () => {
 	useEffectOnce(() => {
 		const initRoutes = () => {
 			const path = state.hash.replace('#', '');
-			if (path === '/') {
-				push({ path: '/appointment', breadcrumbName: '预约管理' });
-			}
 			getRouters().forEach((v) => {
 				if (v.children && v.children.length) {
 					v.children.forEach((k) => {
