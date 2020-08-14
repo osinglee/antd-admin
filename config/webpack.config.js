@@ -374,6 +374,7 @@ module.exports = function(webpackEnv) {
 								),
 
 								plugins: [
+									['jsx-control-statements'],
 									['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
 									[
 										require.resolve('babel-plugin-named-asset-import'),

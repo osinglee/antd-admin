@@ -1,7 +1,9 @@
+import React from 'react';
 import { Breadcrumb, Layout } from 'antd';
 import { Link, Redirect, Switch } from 'react-router-dom';
+import { If } from 'babel-plugin-jsx-control-statements';
 import { getRouters, renderRouters } from '../route-component';
-import React from 'react';
+import defaultSettings from '../../../defaultSettings';
 
 const layoutContent = ({ routes }) => {
 	function getDefaultPath(childRoutes) {
@@ -14,17 +16,19 @@ const layoutContent = ({ routes }) => {
 			: '/';
 	}
 
-	const itemRender = (route, params, routes, paths) => {
+	const itemRender = (route, params, routes) => {
 		const first = routes.indexOf(route) === 0;
 		return !first ? <span>{route.breadcrumbName}</span> : <Link to={{ pathname: '/' }}>{route.breadcrumbName}</Link>;
 	};
 
 	return (
-		<Layout.Content className={'app_layout_count'}>
-			<div className={'app_layout_content'}>
-				<div className={'bread_div'}>
-					<Breadcrumb className={'bread_color'} itemRender={itemRender} routes={routes} />
-				</div>
+		<Layout.Content className="app_layout_count">
+			<div className="app_layout_content">
+				<If condition={defaultSettings.breadcrumb}>
+					<div className="bread_div">
+						<Breadcrumb className="bread_color" itemRender={itemRender} routes={routes} />
+					</div>
+				</If>
 				<Switch>
 					<Redirect exact from="/" to={getRouters()[0].path} />
 					{renderRouters(getRouters())}

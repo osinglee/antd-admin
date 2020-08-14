@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Appointment = (_) => {
+const Appointment = () => {
 	return <div>123</div>;
 };
 export default Appointment;

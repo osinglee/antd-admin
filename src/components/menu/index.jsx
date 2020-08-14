@@ -1,10 +1,18 @@
 import React from 'react';
 import { Menu as Me } from 'antd';
 import { Link } from 'react-router-dom';
+import defaultSettings from '../../defaultSettings';
 
 const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
-	const renderMenu = (menu) => {
-		return menu.map((item) => {
+	const renderMenuItem = (item) => (
+		<div>
+			{item.icon}
+			<span>{item.label}</span>
+		</div>
+	);
+
+	const renderMenu = (menus) => {
+		return menus.map((item) => {
 			if (item.hidden) {
 				return null;
 			}
@@ -22,19 +30,11 @@ const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
 		});
 	};
 
-	const renderMenuItem = (item) => (
-		<div>
-			{item.icon}
-			<span>{item.label}</span>
-		</div>
-	);
-
 	return (
 		<Me
-			theme="light"
+			theme={defaultSettings.siderTheme}
 			mode="inline"
 			selectedKeys={selectedKeys}
-			style={{ backgroundColor: '#f3f5f9' }}
 			onClick={setBreadcrumb}
 			defaultOpenKeys={defaultOpenKeys}
 		>

@@ -3,7 +3,7 @@ import { Form, Button, Spin } from 'antd';
 import { Redirect, useHistory } from 'react-router-dom';
 import State from '../../utils/state';
 
-const Login = (_) => {
+const Login = () => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 
@@ -13,7 +13,7 @@ const Login = (_) => {
 		console.log(value);
 		// 阻止事件的默认行为
 		setLoading(true);
-		State.login({});
+		State.login({ name: 'admin' });
 		history.push('/');
 
 		setLoading(false);

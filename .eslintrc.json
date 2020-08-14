@@ -1,9 +1,27 @@
 {
   "extends": [
-    "react-app"
+    "react-app",
+    "airbnb",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "rules": {
-    "react-hooks/rules-of-hooks": 0, // 检查 Hook 的规则
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-props-no-spreading": 0,
+    "no-param-reassign": 0,
+    "react/prop-types": 0,
+    "no-async-promise-executor": 0,
+    "prefer-promise-reject-errors": 0,
+    "consistent-return": 0,
+    "no-nested-ternary": 0,
+    "no-shadow": 0,
+    "no-console": 0,
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "react-hooks/rules-of-hooks": 0,
     "object-curly-spacing": 0,
     "no-else-return": 2,
     "no-unused-vars": 2,

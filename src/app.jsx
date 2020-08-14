@@ -4,7 +4,7 @@ import Layout from './view/layout';
 import Login from './view/login';
 import State from './utils/state';
 
-const App = (_) => {
+const App = () => {
 	return (
 		<HashRouter>
 			<Switch>

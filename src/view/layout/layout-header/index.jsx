@@ -1,10 +1,13 @@
-import { Button, Layout, Modal } from 'antd';
-import { ExclamationCircleOutlined, PoweroffOutlined } from '@ant-design/icons';
 import React from 'react';
-import State from '../../../utils/state';
 import { useHistory } from 'react-router-dom';
+import { Button, Layout, Modal } from 'antd';
+import { If } from 'babel-plugin-jsx-control-statements';
+import { ExclamationCircleOutlined, PoweroffOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
+import State from '../../../utils/state';
+import defaultSetting from '../../../defaultSettings';
 
-const layoutHeader = (_) => {
+const layoutHeader = () => {
 	const history = useHistory();
 
 	const logout = () => {
@@ -21,11 +24,24 @@ const layoutHeader = (_) => {
 		});
 	};
 
+	const light = defaultSetting.siderTheme !== 'light';
+
 	return (
-		<Layout.Header heme="light" className={'site_layout_background'} style={{ height: 50, lineHeight: 50 }}>
-			<div className={'site_layout_header'}>
-				<div className={'trigger'}>重庆市生源地助学贷款管理中心</div>
-				<Button type={'link'} className={'logout_button'} icon={<PoweroffOutlined />} onClick={logout}>
+		<Layout.Header className={classNames('site_layout_background', { 'header-light': light })}>
+			<div className="site_layout_header">
+				<If condition={!defaultSetting.sideMode}>
+					<div className={classNames('home_header_logo', { 'home_header_logo-light': light })}>
+						<span className="home_logo_span">
+							<h1>react后台管理系统</h1>
+						</span>
+					</div>
+				</If>
+				<Button
+					type="link"
+					className={classNames('logout_button', { logout_button_light: light })}
+					icon={<PoweroffOutlined />}
+					onClick={logout}
+				>
 					退出系统
 				</Button>
 			</div>

@@ -1,6 +1,6 @@
+import React from 'react';
 import { Route } from 'react-router-dom';
 import childRoutes from '../router';
-import React from 'react';
 import State from '../../utils/state';
 
 export const RouteWithSubRoutes = (route) => (
@@ -22,6 +22,6 @@ export const renderRouters = (childRoutes) => {
 		if (route.children !== undefined && route.children.length > 0) {
 			return renderRouters(route.children);
 		}
-		return <RouteWithSubRoutes key={index} {...route} />;
+		return <RouteWithSubRoutes key={index.toString()} {...route} />;
 	});
 };

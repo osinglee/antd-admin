@@ -22,7 +22,7 @@ const validateMessages = {
 const customizeRenderEmpty = () => (
 	<div style={{ textAlign: 'center' }}>
 		<SmileOutlined style={{ fontSize: 20 }} />
-		<p className={'empty-p'}>暂无数据</p>
+		<p className="empty-p">暂无数据</p>
 	</div>
 );
 

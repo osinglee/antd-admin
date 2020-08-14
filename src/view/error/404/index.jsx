@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import errImg from '../../../assets/images/404.png';
 import './index.less';
 
-const NotFound = (_) => {
+const NotFound = () => {
 	const history = useHistory();
 	const goHome = () => history.replace('/');
 	return (
