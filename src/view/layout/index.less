@@ -17,7 +17,6 @@
 		overflow-y: auto;
 
 		&::-webkit-scrollbar {
-			/*滚动条整体样式*/
 			display: none;
 			margin: 0;
 		}
@@ -31,7 +30,7 @@
 	}
 
 	.header-light {
-		background-color: #ffffff;
+		background-color: #fff;
 	}
 
 	.trigger {
@@ -70,13 +69,13 @@
 		height: 48px;
 		padding-top: 13px;
 		padding-left: 15px;
-		background-color: #ffffff;
+		background-color: #fff;
 	}
 
 	.logout_button {
 		position: absolute;
 		right: 20px;
-		color: #ffffff;
+		color: #fff;
 	}
 
 	.logout_button.logout_button_light {
@@ -114,13 +113,6 @@
 		justify-content: center;
 		min-height: 32px;
 
-		img {
-			display: inline-block;
-			height: 32px;
-			vertical-align: middle;
-			transition: height 0.2s;
-		}
-
 		h1 {
 			display: inline-block;
 			height: 32px;
@@ -131,6 +123,13 @@
 			line-height: 32px;
 			vertical-align: middle;
 			animation-duration: 0.2s;
+		}
+
+		img {
+			display: inline-block;
+			height: 32px;
+			vertical-align: middle;
+			transition: height 0.2s;
 		}
 	}
 }
