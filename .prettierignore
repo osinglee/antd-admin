@@ -1,4 +1,5 @@
 # Ignore artifacts:
+bin
 config
 public
 scripts

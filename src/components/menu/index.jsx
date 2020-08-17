@@ -3,7 +3,7 @@ import { Menu as Me } from 'antd';
 import { Link } from 'react-router-dom';
 import defaultSettings from '../../defaultSettings';
 
-const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
+const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb, openKeys, onOpenChange }) => {
 	const renderMenuItem = (item) => (
 		<div>
 			{item.icon}
@@ -17,11 +17,11 @@ const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
 				return null;
 			}
 			return item && item.children ? (
-				<Me.SubMenu key={item.path || item.label} title={renderMenuItem(item)}>
+				<Me.SubMenu key={item.path} title={renderMenuItem(item)}>
 					{renderMenu(item.children)}
 				</Me.SubMenu>
 			) : (
-				<Me.Item key={item.path || item.label}>
+				<Me.Item key={item.path}>
 					<Link to={item.path} replace>
 						{renderMenuItem(item)}
 					</Link>
@@ -29,7 +29,6 @@ const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
 			);
 		});
 	};
-
 	return (
 		<Me
 			theme={defaultSettings.siderTheme}
@@ -37,6 +36,8 @@ const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb }) => {
 			selectedKeys={selectedKeys}
 			onClick={setBreadcrumb}
 			defaultOpenKeys={defaultOpenKeys}
+			openKeys={openKeys}
+			onOpenChange={onOpenChange}
 		>
 			{renderMenu(menu)}
 		</Me>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Layout } from 'antd';
 import { useEffectOnce, useList, useLocation } from 'react-use';
 import { Choose, When } from 'babel-plugin-jsx-control-statements';
@@ -8,37 +8,50 @@ import './index.less';
 import LayoutHeader from './layout-header';
 import LayoutSider from './layout-sider';
 import LayoutContent from './layout-content';
-import { getRouters } from './route-component';
+import routersAll, { getDefaultPath } from './route-component';
 import defaultSettings from '../../defaultSettings';
 
 const AppLayout = () => {
 	const state = useLocation();
+
+	const siderRef = useRef(null);
 	if (!State.isLogin) return <Redirect to={{ pathname: '/login' }} />;
 
-	const [routes, { push, reset }] = useList([{ path: getRouters()[0].path, breadcrumbName: '首页' }]);
+	const [routes, { push, reset }] = useList([{ path: routersAll[0].path, breadcrumbName: '首页' }]);
+
+	const initRoutes = (target, hash, paths = []) => {
+		target.forEach((v) => {
+			if (v.children && v.children.length > 0) {
+				initRoutes(v.children, hash, [
+					...paths,
+					{
+						paths: v.path,
+						breadcrumbName: v.label,
+					},
+				]);
+			} else if (v.path === hash) {
+				push(...paths, {
+					paths: v.path,
+					breadcrumbName: v.label,
+				});
+			}
+		});
+	};
 
 	useEffectOnce(() => {
-		const initRoutes = () => {
-			const path = state.hash.replace('#', '');
-			getRouters().forEach((v) => {
-				if (v.children && v.children.length) {
-					v.children.forEach((k) => {
-						if (k.path === path) push({ path: '', breadcrumbName: v.label }, { path: '', breadcrumbName: k.label });
-					});
-				} else if (v.path === path) push({ path: '', breadcrumbName: v.label });
-			});
-		};
-		initRoutes();
+		const hash = state.hash === '#/' ? getDefaultPath(routersAll) : state.hash.replace('#', '');
+		initRoutes(routersAll, hash);
 		return () => initRoutes;
 	});
 
-	const setBreadcrumb = ({ item, key, keyPath }) => {
-		reset();
-		if (key === getRouters()[0].path) return;
-		if (keyPath.length === 2) {
-			push({ path: '', breadcrumbName: item.node.parentNode.previousSibling.innerText });
-		}
-		push({ path: '', breadcrumbName: item.node.innerText });
+	const setBreadcrumb = async ({ key }) => {
+		await reset();
+		initRoutes(routersAll, key);
+	};
+
+	const goHome = () => {
+		setBreadcrumb({ key: getDefaultPath(routersAll) });
+		siderRef.current.openKey();
 	};
 
 	return (
@@ -57,10 +70,10 @@ const AppLayout = () => {
 						<LayoutHeader />
 					</When>
 					<When condition={!defaultSettings.sideMode}>
-						<LayoutSider setBreadcrumb={setBreadcrumb} />
+						<LayoutSider ref={siderRef} setBreadcrumb={setBreadcrumb} />
 					</When>
 				</Choose>
-				<LayoutContent routes={routes} />
+				<LayoutContent routes={routes} goHome={goHome} />
 			</Layout>
 		</Layout>
 	);

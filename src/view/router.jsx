@@ -5,23 +5,63 @@ import Loading from '../components/Loading';
 
 const Error404 = Loadable({ loader: () => import('./error/404'), loading: Loading });
 const Setting = Loadable({ loader: () => import('./setting'), loading: Loading });
-const Appointment = Loadable({ loader: () => import('./appointment'), loading: Loading });
-const Loan = Loadable({ loader: () => import('./loan'), loading: Loading });
+const BasicForm = Loadable({ loader: () => import('./form/basic-form'), loading: Loading });
+const TableList = Loadable({ loader: () => import('./list/table-list'), loading: Loading });
 
 export default [
 	{
-		path: '/appointment',
-		label: '预约管理',
+		path: '/form',
+		label: '表单页',
 		roles: ['ADMIN'],
 		icon: <ClockCircleOutlined />,
-		component: Appointment,
+		children: [
+			{
+				path: '/form/basic-form',
+				label: '基础表单',
+				roles: ['ADMIN'],
+				component: BasicForm,
+				children: [
+					{
+						path: '/form/basic-form/1',
+						label: '基础表单-1',
+						roles: ['ADMIN'],
+						component: BasicForm,
+					},
+					{
+						path: '/form/basic-form/3',
+						label: '基础表单-2',
+						roles: ['ADMIN'],
+						component: BasicForm,
+					},
+				],
+			},
+			{
+				path: '/form/basic-form2',
+				label: '基础表单',
+				roles: ['ADMIN'],
+				component: BasicForm,
+			},
+		],
 	},
 	{
-		path: '/loan',
-		label: '贷款管理',
+		path: '/list',
+		label: '列表页',
 		roles: ['ADMIN'],
 		icon: <DollarOutlined />,
-		component: Loan,
+		children: [
+			{
+				path: '/list/table-list',
+				label: '查询表格',
+				roles: ['ADMIN'],
+				component: TableList,
+			},
+			{
+				path: '/list/table-list2',
+				label: '查询表格',
+				roles: ['ADMIN'],
+				component: TableList,
+			},
+		],
 	},
 	{
 		path: '/setting',

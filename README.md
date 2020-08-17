@@ -1,9 +1,17 @@
-基于Create React App 的React框架
+基于 Create React App 的 React 脚手架
 
 ## eslint
 
-- [prettier](https://github.com/prettier/prettier)
 - [airbnb](https://github.com/airbnb/javascript)
+- [prettier](https://github.com/prettier/prettier)
+
+## stylelint
+
+- [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)
+
+## hooks
+
+- [ahooks](https://github.com/alibaba/hooks)
 
 ### `yarn start`
 

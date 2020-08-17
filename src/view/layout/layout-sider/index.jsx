@@ -1,39 +1,43 @@
-import React from 'react';
-import { useLocation } from 'react-use';
+import React, { useImperativeHandle } from 'react';
+import { useEffectOnce, useList, useLocation } from 'react-use';
 import { Layout } from 'antd';
 import { If } from 'babel-plugin-jsx-control-statements';
 import classNames from 'classnames';
+import routersAll, { defaultOpenKey } from '../route-component';
 import MenuComp from '../../../components/menu';
-import { getRouters } from '../route-component';
 import defaultSettings from '../../../defaultSettings';
 
-const layoutSider = ({ setBreadcrumb }) => {
+const layoutSider = React.forwardRef((props, ref) => {
 	const state = useLocation();
 
-	const defaultOpenKey = () => {
-		if (state.hash === '#/') return ['/basics'];
+	const [openKeys, { set }] = useList([]);
+
+	const selectedOpenKey = () => {
+		if (state.hash === '#/') return defaultOpenKey();
 		const pathList = state.hash.replace('#', '').split('/');
 		const result = [];
 		if (pathList.length >= 2) {
-			pathList.pop();
 			pathList
 				.filter((v) => !!v)
 				.reduce((value, next) => {
-					result.push(value ? `/${value}/${next}` : `/${next}`);
-					return value + next;
+					result.push(value ? `${value}/${next}` : `/${next}`);
+					return [value, next].join('/');
 				}, '');
 		}
 		return result;
 	};
 
-	const defaultPath = (childRoutes) => {
-		return childRoutes.length
-			? childRoutes[0].children
-				? childRoutes[0].children && childRoutes[0].children.length > 0
-					? childRoutes[0].children[0].path
-					: '/'
-				: childRoutes[0].path
-			: '/';
+	useEffectOnce(() => {
+		set(defaultOpenKey());
+		return () => set(defaultOpenKey());
+	});
+
+	useImperativeHandle(ref, () => ({
+		openKey: () => set(defaultOpenKey()),
+	}));
+
+	const onOpenChange = (openKeys) => {
+		set(openKeys);
 	};
 
 	return (
@@ -46,13 +50,15 @@ const layoutSider = ({ setBreadcrumb }) => {
 				</div>
 			</If>
 			<MenuComp
-				menu={getRouters()}
-				defaultOpenKeys={defaultOpenKey()}
-				setBreadcrumb={setBreadcrumb}
-				selectedKeys={[state.hash === '#/' ? defaultPath(getRouters()) : state.hash.replace('#', '')]}
+				menu={routersAll}
+				defaultOpenKeys={selectedOpenKey()}
+				setBreadcrumb={props.setBreadcrumb}
+				selectedKeys={selectedOpenKey()}
+				onOpenChange={onOpenChange}
+				openKeys={openKeys}
 			/>
 		</Layout.Sider>
 	);
-};
+});
 
 export default layoutSider;
