@@ -1,84 +1,99 @@
+/**
+ * title: Form and Table data binding
+ * desc: useAntdTable returns a search object after receiving a form instance.
+ *
+ * title.zh-CN: Form 与 Table 联动
+ * desc.zh-CN: useAntdTable 接收 form 实例后，会返回 search 对象。
+ */
+
 import React from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Form, Input, Table, Select, Button, Space } from 'antd';
+import { useAntdTable } from 'ahooks';
+import './index.less';
 
-const columns = [
-	{
-		title: 'Name',
-		dataIndex: 'name',
-		key: 'name',
-		render: (text) => <span>{text}</span>,
-	},
-	{
-		title: 'Age',
-		dataIndex: 'age',
-		key: 'age',
-	},
-	{
-		title: 'Address',
-		dataIndex: 'address',
-		key: 'address',
-	},
-	{
-		title: 'Tags',
-		key: 'tags',
-		dataIndex: 'tags',
-		render: (tags) => (
-			<>
-				{tags.map((tag) => {
-					let color = tag.length > 5 ? 'geekblue' : 'green';
-					if (tag === 'loser') {
-						color = 'volcano';
-					}
-					return (
-						<Tag color={color} key={tag}>
-							{tag.toUpperCase()}
-						</Tag>
-					);
-				})}
-			</>
-		),
-	},
-	{
-		title: 'Action',
-		key: 'action',
-		render: (text, record) => (
-			<Space size="middle">
-				<span>
-					Invite
-					{record.name}
-				</span>
-				<span>Delete</span>
-			</Space>
-		),
-	},
-];
+const getTableData = ({ current, pageSize }, formData) => {
+	let query = `page=${current}&size=${pageSize}`;
+	Object.entries(formData).forEach(([key, value]) => {
+		if (value) {
+			query += `&${key}=${value}`;
+		}
+	});
 
-const data = [
-	{
-		key: '1',
-		name: 'John Brown',
-		age: 32,
-		address: 'New York No. 1 Lake Park',
-		tags: ['nice', 'developer'],
-	},
-	{
-		key: '2',
-		name: 'Jim Green',
-		age: 42,
-		address: 'London No. 1 Lake Park',
-		tags: ['loser'],
-	},
-	{
-		key: '3',
-		name: 'Joe Black',
-		age: 32,
-		address: 'Sidney No. 1 Lake Park',
-		tags: ['cool', 'teacher'],
-	},
-];
-
-const TableList = () => {
-	return <Table columns={columns} dataSource={data} />;
+	return fetch(`https://randomuser.me/api?results=100&${query}`)
+		.then((res) => res.json())
+		.then((res) => res);
 };
 
-export default TableList;
+export default () => {
+	const [form] = Form.useForm();
+
+	const { tableProps, search } = useAntdTable(getTableData, {
+		defaultPageSize: 20,
+		paginated: true,
+		formatResult: (response) => ({
+			total: response.info.results,
+			list: response.results,
+		}),
+		form,
+	});
+
+	const { submit, reset } = search;
+
+	const columns = [
+		{
+			title: '姓名',
+			dataIndex: 'name',
+			render: (text) => {
+				return <span>{text.first}</span>;
+			},
+		},
+		{
+			title: '邮箱',
+			dataIndex: 'email',
+		},
+		{
+			title: '电话',
+			dataIndex: 'phone',
+		},
+		{
+			title: '性别',
+			dataIndex: 'gender',
+			render: (text) => {
+				return <span>{text === 'male' ? '男' : '女'}</span>;
+			},
+		},
+	];
+
+	return (
+		<div>
+			<Form form={form} className="table-list-form">
+				<Space>
+					<Form.Item name="gender" placeholder="请选择性别" noStyle>
+						<Select style={{ width: 120 }}>
+							<Select.Option value="">全部</Select.Option>
+							<Select.Option value="male">男</Select.Option>
+							<Select.Option value="female">女</Select.Option>
+						</Select>
+					</Form.Item>
+					<Form.Item name="name" noStyle>
+						<Input placeholder="请输入姓名" style={{ width: 200 }} />
+					</Form.Item>
+					<Button type="primary" onClick={submit}>
+						查询
+					</Button>
+					<Button type="primary" onClick={reset}>
+						重置
+					</Button>
+				</Space>
+			</Form>
+			<Table
+				size="small"
+				bordered
+				columns={columns}
+				scroll={{ y: 'calc(100vh - 290px)' }}
+				rowKey="email"
+				{...tableProps}
+			/>
+		</div>
+	);
+};

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Input, Tooltip, Cascader, Select, Row, Col, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Cascader, Select, Row, Col, Button, AutoComplete, DatePicker } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import FormItemLabel from '../../../components/FormItemLabel';
 
 const { Option } = Select;
 
@@ -102,22 +103,22 @@ const basicForm = () => {
 		<Form
 			{...formItemLayout}
 			form={form}
-			name="register"
+			hideRequiredMark
 			onFinish={onFinish}
 			initialValues={initialValues}
 			scrollToFirstError
 		>
 			<Form.Item
 				name="email"
-				label="E-mail"
+				label={<FormItemLabel label="邮箱" require />}
 				rules={[
 					{
 						type: 'email',
-						message: 'The input is not valid E-mail!',
+						message: '输入的电子邮件无效!',
 					},
 					{
 						required: true,
-						message: 'Please input your E-mail!',
+						message: '邮箱不能为空',
 					},
 				]}
 			>
@@ -126,34 +127,30 @@ const basicForm = () => {
 
 			<Form.Item
 				name="password"
-				label="Password"
-				rules={[
-					{
-						required: true,
-						message: 'Please input your password!',
-					},
-				]}
-				hasFeedback
+				label={
+					<FormItemLabel label="密码" require>
+						<Tooltip title="密码长度为6-11为字符?">
+							<QuestionCircleOutlined />
+						</Tooltip>
+					</FormItemLabel>
+				}
+				rules={[{ required: true, message: '密码不能为空' }]}
 			>
 				<Input.Password />
 			</Form.Item>
 
 			<Form.Item
 				name="confirm"
-				label="Confirm Password"
+				label={<FormItemLabel label="确认密码" require />}
 				dependencies={['password']}
-				hasFeedback
 				rules={[
-					{
-						required: true,
-						message: 'Please confirm your password!',
-					},
+					{ required: true, message: '确认密码不能为空' },
 					({ getFieldValue }) => ({
 						validator(rule, value) {
 							if (!value || getFieldValue('password') === value) {
 								return Promise.resolve();
 							}
-							return Promise.reject('The two passwords that you entered do not match!');
+							return Promise.reject('您输入的两个密码不匹配！');
 						},
 					}),
 				]}
@@ -161,18 +158,7 @@ const basicForm = () => {
 				<Input.Password />
 			</Form.Item>
 
-			<Form.Item
-				name="nickname"
-				label={
-					<span>
-						Nickname&nbsp;
-						<Tooltip title="What do you want others to call you?">
-							<QuestionCircleOutlined />
-						</Tooltip>
-					</span>
-				}
-				rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
-			>
+			<Form.Item name="nickname" label="姓名" rules={[{ required: true, whitespace: true }]}>
 				<Input />
 			</Form.Item>
 
@@ -196,6 +182,16 @@ const basicForm = () => {
 				<AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
 					<Input />
 				</AutoComplete>
+			</Form.Item>
+
+			<Form.Item label="inline" style={{ marginBottom: 0 }}>
+				<Form.Item style={{ display: 'inline-block', width: 200 }}>
+					<DatePicker style={{ width: '100%' }} />
+				</Form.Item>
+				<span style={{ display: 'inline-block', width: '24px', lineHeight: '32px', textAlign: 'center' }}>-</span>
+				<Form.Item style={{ display: 'inline-block', width: 200 }}>
+					<DatePicker style={{ width: '100%' }} />
+				</Form.Item>
 			</Form.Item>
 
 			<Form.Item label="Captcha" extra="We must make sure that your are a human.">

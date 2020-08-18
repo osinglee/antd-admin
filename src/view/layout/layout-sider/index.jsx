@@ -7,14 +7,15 @@ import routersAll, { defaultOpenKey } from '../route-component';
 import MenuComp from '../../../components/menu';
 import defaultSettings from '../../../defaultSettings';
 
-const layoutSider = React.forwardRef((props, ref) => {
+const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	const state = useLocation();
 
 	const [openKeys, { set }] = useList([]);
 
-	const selectedOpenKey = () => {
-		if (state.hash === '#/') return defaultOpenKey();
-		const pathList = state.hash.replace('#', '').split('/');
+	const selectedOpenKey = (hash) => {
+		hash = hash.replace('#', '');
+		if (hash === '/') return defaultOpenKey();
+		const pathList = hash.split('/');
 		const result = [];
 		if (pathList.length >= 2) {
 			pathList
@@ -28,12 +29,18 @@ const layoutSider = React.forwardRef((props, ref) => {
 	};
 
 	useEffectOnce(() => {
-		set(defaultOpenKey());
-		return () => set(defaultOpenKey());
+		const openKeys = selectedOpenKey(state.hash);
+		openKeys.pop();
+		set(openKeys);
+		return () => set(openKeys);
 	});
 
 	useImperativeHandle(ref, () => ({
-		openKey: () => set(defaultOpenKey()),
+		openKey: (hash) => {
+			const openKeys = selectedOpenKey(hash);
+			openKeys.pop();
+			set(openKeys);
+		},
 	}));
 
 	const onOpenChange = (openKeys) => {
@@ -51,9 +58,9 @@ const layoutSider = React.forwardRef((props, ref) => {
 			</If>
 			<MenuComp
 				menu={routersAll}
-				defaultOpenKeys={selectedOpenKey()}
-				setBreadcrumb={props.setBreadcrumb}
-				selectedKeys={selectedOpenKey()}
+				defaultOpenKeys={selectedOpenKey(state.hash)}
+				setBreadcrumb={setBreadcrumb}
+				selectedKeys={selectedOpenKey(state.hash)}
 				onOpenChange={onOpenChange}
 				openKeys={openKeys}
 			/>

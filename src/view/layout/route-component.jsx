@@ -23,26 +23,32 @@ export const renderRouters = (childRoutes) => {
 const routersAll = childRoutes.filter((v) => (v.roles ? v.roles.includes(State.userInfo.roles) || true : true));
 export default routersAll;
 
+const getRecursionFindPath = (child) => {
+	if (child.children && child.children.length) {
+		const [first] = child.children;
+		return getRecursionFindPath(first);
+	}
+	return child.path;
+};
+
 export const getDefaultPath = (childRoutes) => {
-	return childRoutes.length
-		? childRoutes[0].children
-			? childRoutes[0].children && childRoutes[0].children.length > 0
-				? childRoutes[0].children[0].children && childRoutes[0].children[0].children.length > 0
-					? childRoutes[0].children[0].children[0].path
-					: childRoutes[0].children[0].path
-				: childRoutes[0].path
-			: childRoutes[0].path
-		: '/';
+	const [first] = childRoutes;
+	return getRecursionFindPath(first);
+};
+
+const getRecursionFindOpenKey = (child, openKeys) => {
+	if (child.children && child.children.length) {
+		const [first] = child.children;
+		openKeys.push(child.path);
+		getRecursionFindOpenKey(first, openKeys);
+	} else {
+		openKeys.push(child.path);
+	}
 };
 
 export const defaultOpenKey = () => {
-	return routersAll.length
-		? routersAll[0].children
-			? routersAll[0].children && routersAll[0].children.length > 0
-				? routersAll[0].children[0].children && routersAll[0].children[0].children.length > 0
-					? [routersAll[0].path, routersAll[0].children[0].path, routersAll[0].children[0].children[0].path]
-					: [routersAll[0].path, routersAll[0].children[0].path]
-				: [routersAll[0].path]
-			: [routersAll[0].path]
-		: '/';
+	const openKeys = [];
+	const [first] = childRoutes;
+	getRecursionFindOpenKey(first, openKeys);
+	return openKeys;
 };

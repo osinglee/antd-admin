@@ -51,7 +51,7 @@ const AppLayout = () => {
 
 	const goHome = () => {
 		setBreadcrumb({ key: getDefaultPath(routersAll) });
-		siderRef.current.openKey();
+		siderRef.current.openKey(getDefaultPath(routersAll));
 	};
 
 	return (

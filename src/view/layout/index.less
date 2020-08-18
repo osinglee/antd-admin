@@ -15,6 +15,7 @@
 
 	.site_side_bar {
 		overflow-y: auto;
+		border-right: 1px solid var(--divider-color);
 
 		&::-webkit-scrollbar {
 			display: none;
@@ -30,7 +31,7 @@
 	}
 
 	.header-light {
-		background-color: #fff;
+		background-color: var(--white);
 	}
 
 	.trigger {
@@ -67,15 +68,17 @@
 
 	.bread_div {
 		height: 48px;
-		padding-top: 13px;
-		padding-left: 15px;
-		background-color: #fff;
+		background-color: var(--white);
+		display: flex;
+		align-items: center;
+		padding: 0 20px;
+		border-bottom: 1px solid var(--divider-color);
 	}
 
 	.logout_button {
 		position: absolute;
 		right: 20px;
-		color: #fff;
+		color: var(--white);
 	}
 
 	.logout_button.logout_button_light {
@@ -117,7 +120,7 @@
 			display: inline-block;
 			height: 32px;
 			margin: 0 0 0 12px;
-			color: #fff;
+			color: var(--white);
 			font-weight: 600;
 			font-size: var(--font-size-titlle);
 			line-height: 32px;
