@@ -9,7 +9,9 @@
 import React from 'react';
 import { Form, Input, Table, Select, Button, Space } from 'antd';
 import { useAntdTable } from 'ahooks';
-import './index.less';
+import qs from 'qs';
+import { Link } from 'react-router-dom';
+import css from './index.scss';
 
 const getTableData = ({ current, pageSize }, formData) => {
 	let query = `page=${current}&size=${pageSize}`;
@@ -43,8 +45,12 @@ export default () => {
 		{
 			title: '姓名',
 			dataIndex: 'name',
-			render: (text) => {
-				return <span>{text.first}</span>;
+			render: (text, record) => {
+				return (
+					<Link to={{ pathname: `/list/descriptions`, search: qs.stringify({ phone: record.phone }) }}>
+						{text.first}
+					</Link>
+				);
 			},
 		},
 		{
@@ -65,8 +71,8 @@ export default () => {
 	];
 
 	return (
-		<div>
-			<Form form={form} className="table-list-form">
+		<>
+			<Form form={form} className={css.table_list_form}>
 				<Space>
 					<Form.Item name="gender" placeholder="请选择性别" noStyle>
 						<Select style={{ width: 120 }}>
@@ -76,7 +82,7 @@ export default () => {
 						</Select>
 					</Form.Item>
 					<Form.Item name="name" noStyle>
-						<Input placeholder="请输入姓名" style={{ width: 200 }} />
+						<Input placeholder="请输入姓名" style={{ width: 200 }} allowClear />
 					</Form.Item>
 					<Button type="primary" onClick={submit}>
 						查询
@@ -94,6 +100,6 @@ export default () => {
 				rowKey="email"
 				{...tableProps}
 			/>
-		</div>
+		</>
 	);
 };

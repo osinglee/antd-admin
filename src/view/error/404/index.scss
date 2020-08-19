@@ -1,7 +1,7 @@
-.not-found {
+.not_found {
 	background-color: var(--page-background-color);
 	height: 100%;
-	.right {
+	&_right {
 		padding-left: 50px;
 		margin-top: 150px;
 		h1 {

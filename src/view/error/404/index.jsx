@@ -2,17 +2,17 @@ import React from 'react';
 import { Button, Row, Col } from 'antd';
 import { useHistory } from 'react-router-dom';
 import errImg from '../../../assets/images/404.png';
-import './index.less';
+import css from './index.scss';
 
 const NotFound = () => {
 	const history = useHistory();
 	const goHome = () => history.replace('/');
 	return (
-		<Row className="not-found">
+		<Row className={css.not_found}>
 			<Col span={12}>
 				<img src={errImg} alt="404" />
 			</Col>
-			<Col span={12} className="right">
+			<Col span={12} className={css.not_found_right}>
 				<h1>404</h1>
 				<h2>抱歉，你访问的页面不存在</h2>
 				<div>

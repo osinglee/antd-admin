@@ -1,11 +1,11 @@
 import React from 'react';
-import './index.less';
+import css from './index.scss';
 
 const FormItemLabel = ({ label, require = false, children }) => {
 	return (
 		<span>
 			{label}
-			<em className="form-basic-form-style-optional">
+			<em className={css.form_basic_form_style_optional}>
 				{`（${require ? '必填' : '选填'}）`}
 				{children}
 			</em>

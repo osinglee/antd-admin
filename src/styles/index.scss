@@ -1,4 +1,4 @@
-@import './var.less';
+@import 'var.scss';
 //@import '~antd/dist/antd.dark.less'; // 引入官方提供的暗色 less 样式入口文件
 //@import '~antd/dist/antd.compact.less'; // 引入官方提供的紧凑 less 样式入口文件
 
@@ -22,7 +22,7 @@ li {
 }
 
 :root {
-	--primary-color: @primary-color;
+	--primary-color: $primary-color;
 	--divider-color: #eee;
 	--white: #fff;
 	--page-background-color: #f0f2f5;
@@ -30,12 +30,4 @@ li {
 	--default-font-color: #333;
 	--font-size-default: 16px;
 	--font-size-titlle: 18px;
-}
-
-.app-container {
-	width: 100%;
-	min-height: 768px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }

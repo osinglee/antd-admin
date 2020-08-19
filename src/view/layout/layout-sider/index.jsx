@@ -6,10 +6,12 @@ import classNames from 'classnames';
 import routersAll, { defaultOpenKey } from '../route-component';
 import MenuComp from '../../../components/menu';
 import defaultSettings from '../../../defaultSettings';
+import css from '../index.scss';
 
 const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	const state = useLocation();
 
+	const path = state.hash.replace(/\?.*/, '');
 	const [openKeys, { set }] = useList([]);
 
 	const selectedOpenKey = (hash) => {
@@ -29,7 +31,7 @@ const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	};
 
 	useEffectOnce(() => {
-		const openKeys = selectedOpenKey(state.hash);
+		const openKeys = selectedOpenKey(path);
 		openKeys.pop();
 		set(openKeys);
 		return () => set(openKeys);
@@ -48,19 +50,23 @@ const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	};
 
 	return (
-		<Layout.Sider theme={defaultSettings.siderTheme} trigger={null} collapsible className="site_side_bar">
+		<Layout.Sider theme={defaultSettings.siderTheme} trigger={null} collapsible className={css.site_side_bar}>
 			<If condition={defaultSettings.sideMode}>
-				<div className={classNames('home_logo', { 'home_header_logo-light': defaultSettings.siderTheme === 'light' })}>
-					<span className="home_logo_span">
+				<div
+					className={classNames(css.home_logo, {
+						[css.home_header_logo_light]: defaultSettings.siderTheme === 'light',
+					})}
+				>
+					<span className={css.home_logo_span}>
 						<h1>react后台管理系统</h1>
 					</span>
 				</div>
 			</If>
 			<MenuComp
 				menu={routersAll}
-				defaultOpenKeys={selectedOpenKey(state.hash)}
+				defaultOpenKeys={selectedOpenKey(path)}
 				setBreadcrumb={setBreadcrumb}
-				selectedKeys={selectedOpenKey(state.hash)}
+				selectedKeys={selectedOpenKey(path)}
 				onOpenChange={onOpenChange}
 				openKeys={openKeys}
 			/>

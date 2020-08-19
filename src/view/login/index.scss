@@ -1,0 +1,17 @@
+.login_layout {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: auto;
+	background: var(--page-background-color);
+
+	.login_content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.login_footer {
+		text-align: center;
+	}
+}

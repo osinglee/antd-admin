@@ -6,6 +6,7 @@ import { ExclamationCircleOutlined, PoweroffOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import State from '../../../utils/state';
 import defaultSetting from '../../../defaultSettings';
+import css from '../index.scss';
 
 const layoutHeader = () => {
 	const history = useHistory();
@@ -27,18 +28,18 @@ const layoutHeader = () => {
 	const light = defaultSetting.siderTheme !== 'light';
 
 	return (
-		<Layout.Header className={classNames('site_layout_background', { 'header-light': light })}>
-			<div className="site_layout_header">
+		<Layout.Header className={classNames(css.site_layout_background, { [css.header_light]: light })}>
+			<div className={css.site_layout_header}>
 				<If condition={!defaultSetting.sideMode}>
-					<div className={classNames('home_header_logo', { 'home_header_logo-light': light })}>
-						<span className="home_logo_span">
+					<div className={classNames(css.home_header_logo, { [css.home_header_logo_light]: light })}>
+						<span className={css.home_logo_span}>
 							<h1>react后台管理系统</h1>
 						</span>
 					</div>
 				</If>
 				<Button
 					type="link"
-					className={classNames('logout_button', { logout_button_light: light })}
+					className={classNames(css.logout_button, { [css.logout_button_light]: light })}
 					icon={<PoweroffOutlined />}
 					onClick={logout}
 				>

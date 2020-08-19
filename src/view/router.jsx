@@ -7,6 +7,8 @@ const Error404 = Loadable({ loader: () => import('./error/404'), loading: Loadin
 const BraftEditor = Loadable({ loader: () => import('./braft-editor'), loading: Loading });
 const BasicForm = Loadable({ loader: () => import('./form/basic-form'), loading: Loading });
 const TableList = Loadable({ loader: () => import('./list/table-list'), loading: Loading });
+const Descriptions = Loadable({ loader: () => import('./list/descriptions'), loading: Loading });
+const ExcelImport = Loadable({ loader: () => import('./excel/excel-import'), loading: Loading });
 
 export default [
 	{
@@ -34,6 +36,26 @@ export default [
 				label: '查询表格',
 				roles: ['ADMIN'],
 				component: TableList,
+			},
+			{
+				path: '/list/descriptions',
+				label: '描述列表',
+				roles: ['ADMIN'],
+				component: Descriptions,
+			},
+		],
+	},
+	{
+		path: '/excel',
+		label: 'Excel',
+		roles: ['ADMIN'],
+		icon: <DollarOutlined />,
+		children: [
+			{
+				path: '/excel/import',
+				label: 'Excel导入',
+				roles: ['ADMIN'],
+				component: ExcelImport,
 			},
 		],
 	},

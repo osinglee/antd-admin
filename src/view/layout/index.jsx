@@ -4,7 +4,7 @@ import { useEffectOnce, useList, useLocation } from 'react-use';
 import { Choose, When } from 'babel-plugin-jsx-control-statements';
 import { Redirect } from 'react-router-dom';
 import State from '../../utils/state';
-import './index.less';
+import css from './index.scss';
 import LayoutHeader from './layout-header';
 import LayoutSider from './layout-sider';
 import LayoutContent from './layout-content';
@@ -39,7 +39,8 @@ const AppLayout = () => {
 	};
 
 	useEffectOnce(() => {
-		const hash = state.hash === '#/' ? getDefaultPath(routersAll) : state.hash.replace('#', '');
+		const path = state.hash.replace(/\?.*/, '');
+		const hash = path === '#/' ? getDefaultPath(routersAll) : path.replace('#', '');
 		initRoutes(routersAll, hash);
 		return () => initRoutes;
 	});
@@ -55,7 +56,7 @@ const AppLayout = () => {
 	};
 
 	return (
-		<Layout className="app_layout">
+		<Layout className={css.app_layout}>
 			<Choose>
 				<When condition={defaultSettings.sideMode}>
 					<LayoutSider setBreadcrumb={setBreadcrumb} />
@@ -64,7 +65,7 @@ const AppLayout = () => {
 					<LayoutHeader />
 				</When>
 			</Choose>
-			<Layout className="site_layout">
+			<Layout className={css.site_layout}>
 				<Choose>
 					<When condition={defaultSettings.sideMode}>
 						<LayoutHeader />

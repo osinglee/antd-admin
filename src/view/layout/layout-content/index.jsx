@@ -1,9 +1,10 @@
 import React from 'react';
-import { Breadcrumb, Card, Layout } from 'antd';
+import { Breadcrumb, Layout } from 'antd';
 import { Link, Redirect, Switch } from 'react-router-dom';
 import { If } from 'babel-plugin-jsx-control-statements';
 import routersAll, { getDefaultPath, renderRouters } from '../route-component';
 import defaultSettings from '../../../defaultSettings';
+import css from '../index.scss';
 
 const layoutContent = ({ routes, goHome }) => {
 	const itemRender = (route, params, routes) => {
@@ -18,20 +19,20 @@ const layoutContent = ({ routes, goHome }) => {
 	};
 
 	return (
-		<Layout.Content className="app_layout_count">
-			<div className="app_layout_content">
+		<Layout.Content className={css.app_layout_count}>
+			<div className={css.app_layout_flex}>
 				<If condition={defaultSettings.breadcrumb}>
-					<div className="bread_div">
-						<Breadcrumb className="bread_color" itemRender={itemRender} routes={routes} />
+					<div className={css.bread_div}>
+						<Breadcrumb className={css.bread_color} itemRender={itemRender} routes={routes} />
 					</div>
 				</If>
-				<Card bordered={false}>
+				<div className={css.layout_switch}>
 					<Switch>
 						<Redirect exact from="/" to={getDefaultPath(routersAll)} />
 						{renderRouters(routersAll)}
 						<Redirect to="/error/404" />
 					</Switch>
-				</Card>
+				</div>
 			</div>
 		</Layout.Content>
 	);

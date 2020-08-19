@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConfigProvider } from 'antd';
-import './styles/index.less';
+import './styles/index.scss';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 import anTdConfig from './antdConfig';

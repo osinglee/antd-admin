@@ -216,6 +216,7 @@ const basicForm = () => {
 					Register
 				</Button>
 			</Form.Item>
+			<br />
 		</Form>
 	);
 };
