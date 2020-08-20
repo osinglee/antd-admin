@@ -6,4 +6,4 @@
 /test/
 /bin/
 gulpfile.js
-/src/utils/api/**.{js,ts}
+/src/utils/api/

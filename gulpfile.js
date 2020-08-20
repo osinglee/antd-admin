@@ -17,7 +17,6 @@ async function fetch(cb) {
 }
 
 async function build(cb) {
-	console.log(22);
 	src(['src/utils/api/lib/entity.ts', 'src/utils/api/lib/dto.ts', 'src/utils/api/lib/index.ts'], {
 		allowEmpty: true,
 	})
@@ -32,10 +31,11 @@ async function build(cb) {
 			})
 		)
 		.pipe(
-			dest((file) => {
-				return 'src/utils/api/js';
+			dest(() => {
+				return 'src/utils/api';
 			})
 		);
+	cb();
 }
 
 exports.build = build;

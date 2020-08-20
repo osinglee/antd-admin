@@ -33,6 +33,7 @@ const Menu = ({ selectedKeys, defaultOpenKeys, menu, setBreadcrumb, openKeys, on
 		<Me
 			theme={defaultSettings.siderTheme}
 			mode="inline"
+			style={{ height: '100%' }}
 			selectedKeys={selectedKeys}
 			onClick={setBreadcrumb}
 			defaultOpenKeys={defaultOpenKeys}

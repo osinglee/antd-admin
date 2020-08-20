@@ -1,14 +1,6 @@
 import React from 'react';
-import Loadable from 'react-loadable-s';
 import { DollarOutlined, ClockCircleOutlined, SettingOutlined } from '@ant-design/icons';
-import Loading from '../components/Loading';
-
-const Error404 = Loadable({ loader: () => import('./error/404'), loading: Loading });
-const BraftEditor = Loadable({ loader: () => import('./braft-editor'), loading: Loading });
-const BasicForm = Loadable({ loader: () => import('./form/basic-form'), loading: Loading });
-const TableList = Loadable({ loader: () => import('./list/table-list'), loading: Loading });
-const Descriptions = Loadable({ loader: () => import('./list/descriptions'), loading: Loading });
-const ExcelImport = Loadable({ loader: () => import('./excel/excel-import'), loading: Loading });
+import lazy from '../components/lazy';
 
 export default [
 	{
@@ -21,7 +13,7 @@ export default [
 				path: '/form/basic-form',
 				label: '基础表单',
 				roles: ['ADMIN'],
-				component: BasicForm,
+				component: lazy(import('./form/basic-form')),
 			},
 		],
 	},
@@ -35,13 +27,13 @@ export default [
 				path: '/list/table-list',
 				label: '查询表格',
 				roles: ['ADMIN'],
-				component: TableList,
+				component: lazy(import('./list/table-list')),
 			},
 			{
 				path: '/list/descriptions',
 				label: '描述列表',
 				roles: ['ADMIN'],
-				component: Descriptions,
+				component: lazy(import('./list/descriptions')),
 			},
 		],
 	},
@@ -55,7 +47,7 @@ export default [
 				path: '/excel/import',
 				label: 'Excel导入',
 				roles: ['ADMIN'],
-				component: ExcelImport,
+				component: lazy(import('./excel/excel-import')),
 			},
 		],
 	},
@@ -64,8 +56,8 @@ export default [
 		label: '编辑器',
 		roles: ['ADMIN'],
 		icon: <SettingOutlined />,
-		component: BraftEditor,
+		component: lazy(import('./braft-editor')),
 	},
-	{ path: '/error/404', hidden: true, component: Error404 },
-	{ path: '*', hidden: true, component: Error404 },
+	{ path: '/error/404', hidden: true, component: lazy(import('../components/error/404')) },
+	{ path: '*', hidden: true, component: lazy(import('../components/error/404')) },
 ];

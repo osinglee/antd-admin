@@ -108,9 +108,8 @@ function genDto(paths) {
 	_api = def;
 	def.forEach((k) => {
 		let attr = '';
-		// console.log(typeof k.parameters);
 		(k.parameters || []).forEach((s) => {
-			attr += `  ${s.name}${s.required ? '?' : ''}: ${types[s.type] || s.type};\n`;
+			attr += `  ${s.name}?: ${types[s.type] || s.type};\n`;
 		});
 		if (['get', 'header'].indexOf(k.methods) >= 0) {
 			list += `export interface ${k.operationId
@@ -186,7 +185,7 @@ function genApi() {
 	entity = Object.keys(obj).filter(v => !!v);
 
 	const className = `// @ts-ignore
-import services from '../../request'
+import services from '../request'
 import {${entity.join(',\n    ')} \n} from "./entity"\n
 import {${dto.join(',\n    ')} \n} from "./dto"
 \n
