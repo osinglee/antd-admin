@@ -344,6 +344,7 @@ module.exports = function(webpackEnv) {
 					exclude: [
 						paths.appNodeModules,
 						path.resolve(fs.realpathSync(process.cwd()), 'config'),
+						path.resolve(fs.realpathSync(process.cwd()), 'src/utils/api/'),
 					],
 				},
 				{

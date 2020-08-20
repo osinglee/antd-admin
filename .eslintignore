@@ -5,3 +5,5 @@
 /public/
 /test/
 /bin/
+gulpfile.js
+/src/utils/api/**.{js,ts}

@@ -86,6 +86,7 @@ function getClientEnvironment(publicUrl) {
         WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
         WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
         EXTEND_ESLINT: process.env.EXTEND_ESLINT || true,
+				BASE_API: process.env.BASE_API || 'http://localhost:8080',
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

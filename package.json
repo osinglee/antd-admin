@@ -26,6 +26,7 @@
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "classnames": "^2.2.6",
     "css-loader": "3.4.2",
+    "del": "^5.1.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "eslint": "^6.6.0",
@@ -39,6 +40,8 @@
     "file-loader": "4.3.0",
     "file-saver": "^2.0.2",
     "fs-extra": "^8.1.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
@@ -84,6 +87,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "gulp:generate-pi": "gulp --gulpfile gulpfile.js",
     "prettier:write": "npx prettier --write src/",
     "eslint:lint": "eslint src --fix",
     "stylelint-check": "stylelint-config-prettier-check",
@@ -178,6 +182,7 @@
     "prettier": "2.0.5",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-standard": "^20.0.0",
+    "typescript": "^3.9.7"
   }
 }

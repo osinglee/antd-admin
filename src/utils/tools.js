@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export default class Tools {
 	static queryToHash(name) {
 		const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
@@ -134,14 +132,13 @@ export default class Tools {
 	 */
 	static deleteEmptyOption(obj) {
 		if (!(obj instanceof Object)) {
-			return;
+			return obj;
 		}
-		const extendObj = $.extends(true, obj);
-		extendObj.keys((key) => {
+		Object.keys(obj).forEach((key) => {
 			if (!obj[key]) {
-				delete extendObj[key];
+				delete obj[key];
 			}
 		});
-		return extendObj;
+		return obj;
 	}
 }

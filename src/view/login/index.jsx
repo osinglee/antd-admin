@@ -14,9 +14,17 @@ export default () => {
 	const handleSubmit = (value) => {
 		console.log(value);
 		setTrue();
-		State.login({ name: 'admin' });
+		// RequireApi.WebLogin({ account: '123', password: '234' })
+		// 	.then((res) => {
+		// 		console.log(res);
 		setFalse();
+		State.login({ name: 'admin' });
 		history.push('/');
+		// })
+		// .catch((e) => {
+		// 	message.error(e);
+		// 	setFalse();
+		// });
 	};
 
 	return (
