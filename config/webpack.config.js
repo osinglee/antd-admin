@@ -47,6 +47,8 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
@@ -68,7 +70,7 @@ module.exports = function(webpackEnv) {
 	const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
 	// common function to get style loaders
-	const getStyleLoaders = (cssOptions, preProcessor) => {
+	const getStyleLoaders = (cssOptions, preProcessor, preOptions = {}) => {
 		const loaders = [
 			isEnvDevelopment && require.resolve('style-loader'),
 			isEnvProduction && {
@@ -121,6 +123,7 @@ module.exports = function(webpackEnv) {
 					loader: require.resolve(preProcessor),
 					options: {
 						sourceMap: true,
+						...preOptions
 					},
 				},
 			);
@@ -438,6 +441,9 @@ module.exports = function(webpackEnv) {
 							use: getStyleLoaders({
 								importLoaders: 1,
 								sourceMap: isEnvProduction && shouldUseSourceMap,
+								modules: {
+									localIdentName: "[name]__[local]__[hash:base64:5]"
+								}
 							}),
 							// Don't consider CSS imports dead code even if the
 							// containing package claims to have no side effects.
@@ -457,6 +463,7 @@ module.exports = function(webpackEnv) {
 								},
 							}),
 						},
+						// Adds support for LESS
 						{
 							test: /\.less$/,
 							use: ['style-loader', 'css-loader', {

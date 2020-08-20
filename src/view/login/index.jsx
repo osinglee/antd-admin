@@ -32,7 +32,7 @@ export default () => {
 			<Layout.Content className={css.login_content}>
 				<Form onFinish={handleSubmit} className={css.form_content}>
 					<div className="title">
-						<h2>用户登录</h2>
+						<h2 className={css.h2}>用户登录</h2>
 					</div>
 					<Spin spinning={loading} tip="登录中...">
 						<Form.Item>
