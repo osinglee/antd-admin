@@ -1,7 +1,8 @@
 const fs = require('fs');
+const {resolveApp}  = require('./paths')
 
 const theme = {};
-const data = fs.readFileSync(`${process.cwd()}/src/styles/var.scss`);
+const data = fs.readFileSync(resolveApp('src/styles/var.scss'));
 
 const source = data.toString().split(/\n/);
 source.forEach(v => {

@@ -123,7 +123,7 @@ module.exports = function(webpackEnv) {
 					loader: require.resolve(preProcessor),
 					options: {
 						sourceMap: true,
-						...preOptions
+						...preOptions,
 					},
 				},
 			);
@@ -441,9 +441,6 @@ module.exports = function(webpackEnv) {
 							use: getStyleLoaders({
 								importLoaders: 1,
 								sourceMap: isEnvProduction && shouldUseSourceMap,
-								modules: {
-									localIdentName: "[name]__[local]__[hash:base64:5]"
-								}
 							}),
 							// Don't consider CSS imports dead code even if the
 							// containing package claims to have no side effects.
@@ -463,16 +460,41 @@ module.exports = function(webpackEnv) {
 								},
 							}),
 						},
-						// Adds support for LESS
 						{
-							test: /\.less$/,
-							use: ['style-loader', 'css-loader', {
-								loader: 'less-loader',
-								options: {
+							test: lessRegex,
+							exclude: lessModuleRegex,
+							use: getStyleLoaders(
+								{
+									importLoaders: 1,
+									sourceMap: isEnvProduction && shouldUseSourceMap,
+								},
+								'less-loader',
+								{
 									modifyVars: require('./theme.js'),
 									javascriptEnabled: true,
 								},
-							}],
+							),
+							sideEffects: true,
+						},
+						{
+							test: lessModuleRegex,
+							use: getStyleLoaders(
+								{
+									importLoaders: 1,
+									sourceMap: isEnvProduction && shouldUseSourceMap,
+									modules: {
+										getLocalIdent: getCSSModuleLocalIdent,
+										modules: {
+											localIdentName: '[name]__[local]__[hash:base64:5]',
+										},
+									},
+								},
+								'less-loader',
+								{
+									modifyVars: require('./theme.js'),
+									javascriptEnabled: true,
+								},
+							),
 						},
 						// Opt-in support for SASS (using .scss or .sass extensions).
 						// By default we support SASS Modules with the
@@ -485,8 +507,8 @@ module.exports = function(webpackEnv) {
 									importLoaders: 3,
 									sourceMap: isEnvProduction && shouldUseSourceMap,
 									modules: {
-										localIdentName: "[name]__[local]__[hash:base64:5]"
-									}
+										localIdentName: '[name]__[local]__[hash:base64:5]',
+									},
 								},
 								'sass-loader',
 							),
