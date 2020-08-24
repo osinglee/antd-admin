@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import { Button, Modal } from 'antd';
-import BraftEditor from '../../components/braft-editor';
+import { Button, Modal, Space } from 'antd';
+import BraftEditor from '../../components/u-editor';
 
-const Setting = () => {
+export default () => {
 	const editorRef = useRef(null);
 
 	const setEditorContent = () => {
@@ -16,14 +16,15 @@ const Setting = () => {
 	};
 	return (
 		<div>
-			<div>
+			<Space>
 				<Button onClick={setEditorContent}>设置内容</Button>
 				<Button onClick={getEditorContent}>获取内容</Button>
-			</div>
+			</Space>
+			<br />
+			<br />
 			<div className="editor-wrapper">
 				<BraftEditor ref={editorRef} />
 			</div>
 		</div>
 	);
 };
-export default Setting;

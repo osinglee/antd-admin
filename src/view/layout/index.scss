@@ -16,6 +16,13 @@
 	.site_side_bar {
 		overflow-y: auto;
 
+		:global {
+			.ant-layout-sider-children {
+				display: flex;
+				flex-direction: column;
+			}
+		}
+
 		&::-webkit-scrollbar {
 			display: none;
 			margin: 0;
@@ -94,7 +101,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		padding: 16px;
+		padding: 16px 0;
 		line-height: 32px;
 		cursor: pointer;
 	}
@@ -109,7 +116,7 @@
 	}
 
 	.home_header_logo_light {
-		.home_logo_span h1 {
+		.home_logo_span h4 {
 			color: var(--default-font-color);
 		}
 	}
@@ -121,10 +128,10 @@
 		justify-content: center;
 		min-height: 32px;
 
-		h1 {
+		h4 {
 			display: inline-block;
 			height: 32px;
-			margin: 0 0 0 12px;
+			margin: 0;
 			color: var(--white);
 			font-weight: 600;
 			font-size: var(--font-size-titlle);

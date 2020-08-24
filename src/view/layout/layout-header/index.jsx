@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import State from '../../../utils/state';
 import defaultSetting from '../../../defaultSettings';
 import css from '../index.scss';
+import { name } from '../../../../package.json';
+import img from '../../../assets/images/logo.svg';
 
 const layoutHeader = () => {
 	const history = useHistory();
@@ -33,7 +35,8 @@ const layoutHeader = () => {
 				<If condition={!defaultSetting.sideMode}>
 					<div className={classNames(css.home_header_logo, { [css.home_header_logo_light]: light })}>
 						<span className={css.home_logo_span}>
-							<h1>react后台管理系统</h1>
+							<img src={img} alt="logo" />
+							<h4>{name}</h4>
 						</span>
 					</div>
 				</If>

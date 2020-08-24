@@ -1,6 +1,6 @@
 import React, { useImperativeHandle } from 'react';
 import { useEffectOnce, useList, useLocation } from 'react-use';
-import { Layout } from 'antd';
+import { Layout, Tooltip } from 'antd';
 import { If } from 'babel-plugin-jsx-control-statements';
 import classNames from 'classnames';
 import { useBoolean } from 'ahooks';
@@ -8,6 +8,8 @@ import routersAll, { defaultOpenKey } from '../route-component';
 import MenuComp from '../../../components/menu';
 import defaultSettings from '../../../defaultSettings';
 import css from '../index.scss';
+import img from '../../../assets/images/logo.svg';
+import { name } from '../../../../package.json';
 
 const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	const state = useLocation();
@@ -67,7 +69,15 @@ const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 					})}
 				>
 					<span className={css.home_logo_span}>
-						<h1>react后台管理系统</h1>
+						<If condition={collapsed}>
+							<Tooltip placement="right" title={name}>
+								<img src={img} alt="logo" />
+							</Tooltip>
+						</If>
+						<If condition={!collapsed}>
+							<img src={img} alt="logo" />
+							<h4>{name}</h4>
+						</If>
 					</span>
 				</div>
 			</If>
