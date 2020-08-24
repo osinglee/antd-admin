@@ -2,8 +2,8 @@
 
 ## eslint
 
-- [airbnb](https://github.com/airbnb/javascript)
 - [prettier](https://github.com/prettier/prettier)
+- [airbnb](https://github.com/airbnb/javascript)
 
 ## stylelint
 

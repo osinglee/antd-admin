@@ -3,6 +3,7 @@ import { useEffectOnce, useList, useLocation } from 'react-use';
 import { Layout } from 'antd';
 import { If } from 'babel-plugin-jsx-control-statements';
 import classNames from 'classnames';
+import { useBoolean } from 'ahooks';
 import routersAll, { defaultOpenKey } from '../route-component';
 import MenuComp from '../../../components/menu';
 import defaultSettings from '../../../defaultSettings';
@@ -10,6 +11,7 @@ import css from '../index.scss';
 
 const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	const state = useLocation();
+	const [collapsed, { toggle }] = useBoolean(false);
 
 	const path = state.hash.replace(/\?.*/, '');
 	const [openKeys, { set }] = useList([]);
@@ -50,7 +52,14 @@ const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 	};
 
 	return (
-		<Layout.Sider theme={defaultSettings.siderTheme} trigger={null} collapsible className={css.site_side_bar}>
+		<Layout.Sider
+			theme={defaultSettings.siderTheme}
+			trigger={null}
+			collapsed={collapsed}
+			collapsible
+			collapsedWidth={48}
+			className={css.site_side_bar}
+		>
 			<If condition={defaultSettings.sideMode}>
 				<div
 					className={classNames(css.home_logo, {
@@ -69,6 +78,8 @@ const layoutSider = React.forwardRef(({ setBreadcrumb }, ref) => {
 				selectedKeys={selectedOpenKey(path)}
 				onOpenChange={onOpenChange}
 				openKeys={openKeys}
+				collapsed={collapsed}
+				toggleCollapsed={toggle}
 			/>
 		</Layout.Sider>
 	);

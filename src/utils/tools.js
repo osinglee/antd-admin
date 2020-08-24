@@ -135,7 +135,7 @@ export default class Tools {
 			return obj;
 		}
 		Object.keys(obj).forEach((key) => {
-			if (!obj[key]) {
+			if (obj[key] === undefined || obj[key] === null || obj[key].trim() === '') {
 				delete obj[key];
 			}
 		});
